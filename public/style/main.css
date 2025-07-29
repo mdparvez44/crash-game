@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: #33363d;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    color: #61dafb;
+}
+
+.user-info {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.game-area {
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#graph {
+    background-color: black;
+    border-radius: 8px;
+}
+
+.status-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    font-weight: bold;
+    color: yellow;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.bet-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.bet-area input[type="number"],
+.bet-area select {
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #e0e0e0;
+    font-size: 1em;
+    width: 120px;
+}
+
+.bet-area button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#place-bet {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#place-bet:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+#cash-out {
+    background-color: #f44336;
+    color: white;
+}
+
+#cash-out:hover:not(:disabled) {
+    background-color: #da190b;
+}
+
+.bet-area button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
+#bet-crypto-equivalent {
+    font-size: 0.9em;
+    color: #bbb;
+}
+
+.provably-fair,
+.messages-area,
+.round-history-area {
+    background-color: #2f3238;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.provably-fair p,
+.provably-fair label,
+.provably-fair input {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.provably-fair input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #444;
+    color: #e0e0e0;
+    margin-top: 5px;
+}
+
+.provably-fair button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.provably-fair button:hover {
+    background-color: #0056b3;
+}
+
+.messages-area ul,
+.round-history-area table {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.messages-area li {
+    background-color: #444;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.round-history-area table {
+    border-collapse: collapse;
+}
+
+.round-history-area th,
+.round-history-area td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+    font-size: 0.85em;
+}
+
+.round-history-area th {
+    background-color: #444;
+    color: #61dafb;
+}
+
+.round-history-area tr:nth-child(even) {
+    background-color: #3a3d42;
+}

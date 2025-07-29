@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crash Game</title>
+    <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crash Game</h1>
+        <div class="user-info">
+            Your Balances: 
+            <span id="user-balance-btc">0.00 BTC</span> | 
+            <span id="user-balance-eth">0.00 ETH</span> | 
+            <span id="user-balance-usdt">0.00 USDT</span>
+            <span id="total-usd-equivalent">($0.00 USD)</span>
+        </div>
+
+        <div class="game-area">
+            <canvas id="graph" width="600" height="300"></canvas>
+            <div id="status" class="status-display">Waiting for Bets...</div>
+        </div>
+
+        <div class="bet-area">
+            <label for="bet-input">Bet Amount (USD):</label>
+            <input type="number" id="bet-input" placeholder="Enter USD amount" value="10" min="1" step="any">
+            <span id="bet-crypto-equivalent"></span>
+            <select id="currency-select">
+                <option value="bitcoin">BTC</option>
+                <option value="ethereum">ETH</option>
+                <option value="tether">USDT</option>
+            </select>
+            <button id="place-bet">Place Bet</button>
+            <button id="cash-out" disabled>Cash Out</button>
+        </div>
+
+        <div class="provably-fair">
+            <h3>Provably Fair</h3>
+            <p>Hashed Server Seed: <span id="hashed-server-seed">N/A</span></p>
+            <label for="client-seed-input">Your Client Seed:</label>
+            <input type="text" id="client-seed-input" value="defaultClientSeed">
+            <p>Nonce: <span id="nonce-display">0</span></p>
+            <p>Round Server Seed: <span id="revealed-server-seed">N/A</span></p>
+            <button id="verify-round-btn">Verify Last Round</button>
+            <p id="verification-result"></p>
+        </div>
+
+        <div class="messages-area">
+            <h2>Recent Cashouts</h2>
+            <ul id="cashout-log"></ul>
+        </div>
+
+        <div class="round-history-area">
+            <h2>Round History</h2>
+            <table id="round-history-table">
+                <thead>
+                    <tr>
+                        <th>Round #</th>
+                        <th>Crash Point</th>
+                        <th>Server Seed</th>
+                        <th>Client Seed</th>
+                        <th>Nonce</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="/js/canvas/graph.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/betting.js"></script>
+    <script src="/js/crypto.js"></script>
+</body>
+</html>
+<script>
+    // Initialize the socket connection
+    const socket = io();
+
+    // Handle incoming data from the server
+    socket.on('updateBalances', (data) => {
+        document.getElementById('user-balance-btc').textContent = `${data.btcBalance.toFixed(2)} BTC`;
+        document.getElementById('user-balance-eth').textContent = `${data.ethBalance.toFixed(2)} ETH`;
+        document.getElementById('user-balance-usdt').textContent = `${data.usdtBalance.toFixed(2)} USDT`;
+        document.getElementById('total-usd-equivalent').textContent = `($${data.totalUsdEquivalent.toFixed(2)} USD)`;
+    });
+
+    socket.on('newRound', (roundData) => {
+        updateGraph(roundData);
+        updateRoundHistory(roundData);
+    });
+
+    socket.on('cashoutUpdate', (cashoutData) => {
+        updateCashoutLog(cashoutData);
+    });
+
+    // Additional event listeners and functions can be added here

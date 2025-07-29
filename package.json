@@ -1,0 +1,19 @@
+{
+  "name": "crypto-crash-game",
+  "version": "1.0.0",
+  "description": "A provably fair crypto crash game",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "crypto-js": "^4.2.0",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.5",
+    "socket.io": "^4.7.5"
+  }
+}
